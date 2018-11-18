@@ -1,4 +1,4 @@
-node('node') {
+node{
 
 
     currentBuild.result = "SUCCESS"
@@ -15,11 +15,11 @@ node('node') {
                    }
                stage('deploy-staging') {
                      //deploy to staging server
-                   sh 'rsync -avz  -e ssh --exclude  .git/ var/lib/jenkins/workspace/pipeline-test/.*  ubuntu@13.232.107.33:/home/ubuntu/Docker-files/'
+                   sh 'rsync -avz  -e ssh  /var/lib/jenkins/workspace/pipeline-test/  ubuntu@13.232.107.33:/home/ubuntu/Docker-files/'
                  }
                stage('deploy-production'){
                     //deploy to production server
-                   sh 'rsync -avz -e ssh --exclude .git /var/lib/jenkins/workspace/pipeline-test/.*  ubuntu@13.232.107.33:/home/ubuntu/master'
+                   sh 'rsync -avz -e ssh  /var/lib/jenkins/workspace/pipeline-test/  ubuntu@13.232.107.33:/home/ubuntu/master'
                  }
                stage('mail fail/sucess'){
                     mail body: 'project build successful',
@@ -43,6 +43,5 @@ node('node') {
         throw err
     }
 
-
-    }
+}
     
