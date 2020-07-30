@@ -1,0 +1,116 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+        // parallel steps start here
+      parallel {
+        stage('BuildDev') {
+          when {
+            branch 'dev'
+          }
+          steps {
+            sh '''
+            echo "build has been done"
+             '''
+          }
+        }
+        stage('BuildStaging') {
+      when {
+        branch 'staging'
+      }
+      steps {
+        sh '''
+            echo "build has been done"
+             '''
+      }
+    }
+
+    stage('BuildMaster') {
+      when {
+        branch 'master'
+      }
+      steps {
+        sh '''
+           echo "build has been done"
+         '''
+      }
+    }
+        
+
+      }
+    //   parallel steps ends here
+    }
+
+    
+
+    stage('TestDev') {
+      when {
+        branch 'dev'
+      }
+      steps {
+        sh '''
+            echo "test has been done"
+             '''
+      }
+    }
+
+    stage('TestStaging') {
+      when {
+        branch 'staging'
+      }
+      steps {
+        sh '''
+            echo "test has been done"
+             '''
+      }
+    }
+
+    stage('TestMaster') {
+      when {
+        branch 'master'
+      }
+      steps {
+        sh '''
+            echo "test has been done"
+             '''
+      }
+    }
+
+    stage('DeployDev') {
+      when {
+        branch 'dev'
+      }
+      steps {
+        sh '''
+            echo "Deploy has been done"
+             '''
+      }
+    }
+
+    stage('DeployStaging') {
+      when {
+        branch 'staging'
+      }
+      steps {
+        sh '''
+            echo "Deploy has been done"
+             '''
+      }
+    }
+
+    stage('DeployMaster') {
+      when {
+        branch 'master'
+      }
+      steps {
+        sh '''
+            echo "Deploy has been done"
+             '''
+      }
+    }
+
+  }
+  options {
+    skipStagesAfterUnstable()
+  }
+}
